@@ -8,8 +8,11 @@
 <p align="Left"><img src="https://images.springer.com/sgw/books/medium/9781484203972.jpg" ></p>
 
 ### Description :pushpin:
-Книга «Design Patterns via C#», которая создана Александром Шевчуком с участием Дмитрия Охрименко и Андрея Касьянова. В книге очень четко, последовательно и структурировано, с примерами реализации в языке C# изложены базовые знания о шаблонах проектирования.
-Книга «Design Patterns via C#» не является самостоятельным изданием, описывающим паттерны проектирования, на эту тему уже есть уникальное издание: «Приемы объектно-ориентированного проектирования. Паттерны проектирования», авторами которого являются Эрих Гамма, Ричард Хелм, Ральф Джонсон и Джон Влиссидес.
+ ASP.NET Core MVC is a radical shift for web developers using the Microsoft platform. It emphasizes
+clean architecture, design patterns, and testability, and it doesn’t try to conceal how the Web works.
+ The first part of this book is designed to help you understand broadly the foundational ideas of
+MVC development, including the new features in ASP.NET Core MVC, and to experience in practice
+what the framework is like to use. 
 
 
 
