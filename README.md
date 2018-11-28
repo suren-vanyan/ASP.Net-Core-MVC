@@ -1,7 +1,5 @@
 # :man: Adam Freeman 
-### Adam Freeman is an experienced IT professional who has held senior positions in a range of companies,
-most recently serving as chief technology officer and chief operating officer of a global bank. Now retired, he
-spends his time writing and long-distance running
+##### Adam Freeman is an experienced IT professional who has held senior positions in a range of companies,most recently serving as chief technology officer and chief operating officer of a global bank. Now retired, he spends his time writing and long-distance running
 # :book:  :point_right: Pro ASP.NET Core MVC 2, :thumbsup::thumbsup:
 <ul>
 <li><a href="https://www.apress.com/br/book/9781484231494">:rocket: Pro ASP.NET Core MVC 2</a>
