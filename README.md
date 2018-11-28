@@ -1,4 +1,4 @@
-# DesignPatterns via C# :file_folder: :book:
+# :book: :thumbsup::point_right::rocket: DesignPatterns via C# :file_folder: 
 <ul>
 <li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:orange_book:Design pattern via C#</a>
 </ul>
