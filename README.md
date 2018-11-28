@@ -4,7 +4,7 @@
 </ul>
 <h1>Приемы объектно-ориентированного проектирования</h1>
 <h3>Александр Шевчук, Дмитрий Охрименко, Андрей Касьянов</h3>
-<p align="Left"><img src="https://images.springer.com/sgw/books/medium/9781484203972.jpg" width="404" height="271"></p>
+<p align="Left"><img src="https://images.springer.com/sgw/books/medium/9781484203972.jpg" ></p>
 
 <img itemprop="image" src="https://images.springer.com/sgw/books/medium/9781484203972.jpg">
 ### Description :pushpin:
