@@ -1,6 +1,7 @@
-# :book: :rocket: :point_right: Pro ASP.NET Core MVC 2, :thumbsup::thumbsup:
+# :man: Adam Freeman 
+# :book:  :point_right: Pro ASP.NET Core MVC 2, :thumbsup::thumbsup:
 <ul>
-<li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:orange_book:Design pattern via C#</a>
+<li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:rocket: Pro ASP.NET Core MVC 2</a>
 </ul>
 <h1>Приемы объектно-ориентированного проектирования</h1>
 <h3>Александр Шевчук, Дмитрий Охрименко, Андрей Касьянов</h3>
