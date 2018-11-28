@@ -1,6 +1,6 @@
 # DesignPatterns via C# :file_folder:
 <ul>
-<li><a href="https://drive.google.com/open?id=0By1MH5wlD0LhLTByR3NUclhKbjQ">:orange_book:Design pattern via C#</a>
+<li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:orange_book:Design pattern via C#</a>
 </ul>
 <h1>Приемы объектно-ориентированного проектирования</h1>
 <h3>Александр Шевчук, Дмитрий Охрименко, Андрей Касьянов</h3>
