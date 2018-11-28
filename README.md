@@ -2,7 +2,7 @@
 ##### Adam Freeman is an experienced IT professional who has held senior positions in a range of companies,most recently serving as chief technology officer and chief operating officer of a global bank. Now retired, he spends his time writing and long-distance running
 # :book:  :point_right: Pro ASP.NET Core MVC 2, :thumbsup::thumbsup:
 <ul>
-<li><a href="https://www.apress.com/br/book/9781484231494">:rocket: Pro ASP.NET Core MVC 2</a>
+<li><a href="https://www.apress.com/br/book/9781484231494">:heavy_dollar_sign::heavy_dollar_sign: Pro ASP.NET Core MVC 2</a>
  <li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:mortar_board: :boy: Pro ASP.NET Core MVC 2</a>
 </ul>
 <p align="Left"><img src="https://images.springer.com/sgw/books/medium/9781484203972.jpg" ></p>
@@ -12,11 +12,6 @@
 Книга «Design Patterns via C#» не является самостоятельным изданием, описывающим паттерны проектирования, на эту тему уже есть уникальное издание: «Приемы объектно-ориентированного проектирования. Паттерны проектирования», авторами которого являются Эрих Гамма, Ричард Хелм, Ральф Джонсон и Джон Влиссидес.
 
 
-
-#### Books :file_folder:
-<ul>
-<li><a href="https://drive.google.com/open?id=0By1MH5wlD0LhLTByR3NUclhKbjQ">:orange_book:Design pattern via C#</a>
-</ul>
 
 
 
