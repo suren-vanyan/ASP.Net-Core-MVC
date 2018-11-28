@@ -5,8 +5,6 @@
 <li><a href="https://www.apress.com/br/book/9781484231494">:rocket: Pro ASP.NET Core MVC 2</a>
  <li><a href="http://sd.blackball.lv/library/Pro_ASP.Net_Core_MVC_(2016).pdf">:mortar_board: :boy: Pro ASP.NET Core MVC 2</a>
 </ul>
-<h1>Приемы объектно-ориентированного проектирования</h1>
-<h3>Александр Шевчук, Дмитрий Охрименко, Андрей Касьянов</h3>
 <p align="Left"><img src="https://images.springer.com/sgw/books/medium/9781484203972.jpg" ></p>
 
 ### Description :pushpin:
