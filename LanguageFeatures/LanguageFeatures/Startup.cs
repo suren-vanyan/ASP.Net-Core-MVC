@@ -31,7 +31,7 @@ namespace LanguageFeatures
             //    await context.Response.WriteAsync("Hello World!");
             //});
             app.UseMvcWithDefaultRoute();
-            ///106Rus 119Eng
+            ///116 Rus 130Eng
         }
     }
 }
