@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace GoodSportsGoods.Models
 {
-    public class EFProductRepository
+    public class EFProductRepository : IProductRepository
     {
+        private ApplicationDbContext context;
+        public IQueryable<Product> Products => throw new NotImplementedException();
     }
 }
