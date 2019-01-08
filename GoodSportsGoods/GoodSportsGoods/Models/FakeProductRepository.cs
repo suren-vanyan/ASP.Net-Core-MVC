@@ -16,5 +16,6 @@ namespace GoodSportsGoods.Models
             new Product{Name="Active Sweatpants",Price=25.70M},
             new Product { Name = "Surf board", Price = 179 },
         }.AsQueryable<Product>();
+        //Eng 228, Rus 215
     }
 }
