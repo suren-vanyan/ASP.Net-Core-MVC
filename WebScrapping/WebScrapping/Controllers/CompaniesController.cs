@@ -26,6 +26,11 @@ namespace WebScrapping.Controllers
             return View(await _context.Company.ToListAsync());
         }
 
+        public async Task<IActionResult> GetAllCompanies()
+        {
+            return View(await _context.Company.ToListAsync());
+        }
+
         // GET: Companies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
