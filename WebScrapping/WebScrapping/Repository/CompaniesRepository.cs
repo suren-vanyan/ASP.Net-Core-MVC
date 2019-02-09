@@ -69,42 +69,44 @@ namespace WebScrapping.Repository
                     string regexDateOfFoundation = @"\D*(\d+)\D*";
 
                     string pathJobsHistory = "//*[@class=\"company-job-history\"]/span";
-                    string html = GetHTMLCode(companyUrl);
 
-                    company.Name = GetContentFromHtml(html, pathName);
-                    company.AboutCompany = GetContentFromHtml(html, pathAbout);
 
-                    company.Industry = GetContentFromHtml(html, pathIndustry);
+                    HtmlDocument document = htmlWeb.Load(companyUrl);
+
+
+                    company.Name = GetContentFromHtml(document, pathName);
+                    company.AboutCompany = GetContentFromHtml(document, pathAbout).Trim('\r', '\n', '\t');
+
+                    company.Industry = GetContentFromHtml(document, pathIndustry);
                     company.Industry = company.Industry != null ?
                         Regex.Matches(company.Industry, regexTerms)[0].Groups[1].Value : null;
 
-                    company.Type = GetContentFromHtml(html, pathType);
+                    company.Type = GetContentFromHtml(document, pathType);
                     company.Type = company.Type != null ?
                         Regex.Matches(company.Type, regexTerms)[0].Groups[1].Value : null;
 
-                    string num = GetContentFromHtml(html, pathNumberOfEmployees);
+                    string num = GetContentFromHtml(document, pathNumberOfEmployees);
                     company.NumberOfEmployees = num != null ?
                         int.Parse(Regex.Matches(num, regexDateOfFoundation)[0].Groups[1].Value) : 0;
 
-                    string date = GetContentFromHtml(html, pathDateOfFoundation);
+                    string date = GetContentFromHtml(document, pathDateOfFoundation);
                     company.DateOfFoundation = date != null ?
                         int.Parse(Regex.Matches(date, regexDateOfFoundation)[0].Groups[1].Value) : 0;
 
-                    string jobHist = GetContentFromHtml(html, pathJobsHistory);
+                    string jobHist = GetContentFromHtml(document, pathJobsHistory);
                     company.JobsHistory = jobHist != null ? int.Parse(jobHist) : 0;
 
-                    HtmlDocument htmlDoc = htmlWeb.Load(companyUrl);
                     string companyProps = "//p[@class=\"professional-skills-description\"]";
-                    HtmlNodeCollection htmlNodes = htmlDoc.DocumentNode.SelectNodes(companyProps);
-                    List<string> nodeInnerText = htmlNodes.Select(node => node.InnerText.Replace("\n", "").ToLower()).ToList();
+                    HtmlNodeCollection htmlNodes = document.DocumentNode.SelectNodes(companyProps);
+                    List<string> nodeInnerText = htmlNodes.Select(item => item.InnerText.Replace("\n", "").ToLower()).ToList();
                     foreach (var innerText in nodeInnerText)
                     {
 
-                        if (innerText.Contains("website")) company.WebSite = innerText;
-                        if (innerText.Contains("address")) company.Adress = innerText;
+                        if (innerText.Contains("website")) company.WebSite = innerText.Replace("website", "");
+                        if (innerText.Contains("address")) company.Adress = innerText.Replace("address:", "").Trim();
 
                     }
-
+                    Console.WriteLine();
                 }
                 catch (Exception) { }
 
@@ -114,26 +116,12 @@ namespace WebScrapping.Repository
             return allCompanies;
         }
 
-        private static string GetHTMLCode(string Url)
+        private static string GetContentFromHtml(HtmlDocument document, string xPath)
         {
-            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
-            myRequest.Method = "GET";
-            WebResponse myResponse = myRequest.GetResponse();
-            StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
-            string result = sr.ReadToEnd();
-            sr.Close();
-            myResponse.Close();
 
-            return result;
-        }
-
-        private static string GetContentFromHtml(string html, string xPath)
-        {
-            HtmlDocument code = new HtmlDocument();
-            code.LoadHtml(html);
             try
             {
-                return code.DocumentNode.SelectSingleNode(xPath).InnerText;
+                return document.DocumentNode.SelectSingleNode(xPath).InnerText;
             }
             catch
             {
@@ -143,93 +131,5 @@ namespace WebScrapping.Repository
     }
 
 
-    //public class CompaniesRepository
-    //{
-    //    public static async Task<List<Company>> SearchURLForAllCompaniesAsync(string url)
-    //    {
-    //        return await Task.Run(() => SearchURLForAllCompanies(url));
-
-    //    }
-
-    //    public static List<Company> SearchURLForAllCompanies(string url)
-    //    {
-    //        HtmlWeb htmlWeb = new HtmlWeb();
-    //        HtmlDocument doc = new HtmlDocument();
-
-    //        //if you want to select all 240 companies remove comments  Method Scroll      
-    //         doc.LoadHtml(Scrolling.Scroll(url));
-
-            
-    //       // doc = htmlWeb.Load(url);
-    //        List<Company> allCompanies = null;
-
-    //        HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='company-action company_inner_right']");
-    //        List<string> companyUrlList = new List<string>();
-    //        try
-    //        {
-    //            // find the address of a particular company
-    //            foreach (HtmlNode node in nodes)
-    //            {
-    //                var jobUrl = node.SelectSingleNode(".//a").Attributes[0].Value;
-    //                companyUrlList.Add(@"https://staff.am" + jobUrl);
-
-    //            }
-
-    //            allCompanies = GetAllCompaniesWithTheirInfo(companyUrlList);
-    //        }
-    //        catch (Exception ) { }
-
-    //        return allCompanies;
-    //    }
-
-    //    public static List<Company> GetAllCompaniesWithTheirInfo(List<string> companyUrlList)
-    //    {
-    //        HtmlWeb htmlWeb = new HtmlWeb();
-    //        List<Company> allCompanies = new List<Company>();
-    //        foreach (var companyUrl in companyUrlList)
-    //        {
-    //            Company company = new Company();
-
-    //            try
-    //            {
-    //                // For example:compnayURL="https://staff.am/en/company/betconstruct"
-    //                HtmlDocument htmlDoc = htmlWeb.Load(companyUrl);
    
-    //                string companyProperties = "//p[@class=\"professional-skills-description\"]";
-    //                // string companyProperties = "//div[@class='professional-skills-description']";                 
-    //                HtmlNodeCollection htmlNodes = htmlDoc.DocumentNode.SelectNodes(companyProperties);
-
-    //                string companyProp = "//div[@class='col-lg-8 col-md-8 about-text']";
-    //                HtmlNodeCollection htmlNodesAboutComp = htmlDoc.DocumentNode.SelectNodes(companyProp);
-    //                var textAboutComp = htmlNodesAboutComp.Select(i => i.InnerText.Replace("\n", "")).ToList();
-
-
-    //                string companyName = "//h1[@class=\"text-left\"]";
-    //                HtmlNodeCollection htmlNodeOfName = htmlDoc.DocumentNode.SelectNodes(companyName);
-
-    //                List<string> nodeInnerText = htmlNodes.Select(node => node.InnerText.Replace("\n", "").ToLower()).ToList();
-    //                foreach (var innerText in nodeInnerText)
-    //                {
-    //                    if (innerText.Contains("industry")) company.Industry = innerText;
-    //                    if (innerText.Contains("type")) company.Type = innerText;
-    //                    if (innerText.Contains("number of employees")) company.NumbOfEmployees = innerText;
-    //                    if (innerText.Contains("foundation")) company.DataOfFoundation = innerText;
-    //                    if (innerText.Contains("website")) company.WebSite = innerText;
-    //                    if (innerText.Contains("address")) company.Adress = innerText;
-
-    //                }
-
-    //                List<string> nodeofName = htmlNodeOfName.Select(item => item.InnerText).ToList();
-    //                if (nodeofName != null) company.Name = nodeofName[0];
-    //                if (textAboutComp != null) company.AboutCompany = textAboutComp[0];
-
-    //            }      
-    //            catch (Exception ) {  }
-
-    //            allCompanies.Add(company);
-    //        }
-
-    //        return allCompanies;
-    //    }
-    //}
 }

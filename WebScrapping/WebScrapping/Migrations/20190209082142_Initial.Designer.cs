@@ -9,7 +9,7 @@ using WebScrapping.Models;
 namespace WebScrapping.Migrations
 {
     [DbContext(typeof(WebScrappingContext))]
-    [Migration("20190208234444_Initial")]
+    [Migration("20190209082142_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
