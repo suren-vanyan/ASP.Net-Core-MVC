@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 
 namespace WebScrapping.Controllers
 {
+    [Produces("application/json")]
+    [Route("~/api/CompaniesController")]
     public class CompaniesController : Controller
     {
         private readonly WebScrappingContext _context;
@@ -21,19 +23,25 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies
+        [Route("~/api/GetAllCompanies")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {      
             return View(await _context.Company.ToListAsync());
         }
 
         // Companies/GetAllCompanies
-        public async Task<JsonResult> GetAllCompanies()
+        [Route("~/api/GetCompanyName")]
+        [HttpGet]
+        public async Task<JsonResult> Get()
         {
             var companies =await _context.Company.Select(comp=>comp.Name).ToListAsync();
             return  Json(companies);
         }
 
         // GET: Companies/Details/5
+        [Route("~/api/Details/{id}")]
+        [HttpGet]
         public async Task<IActionResult> Details(int? id=1)
         {
             if (id == null)
@@ -52,6 +60,8 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies/Create
+        [Route("~/api/Create")]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -60,6 +70,7 @@ namespace WebScrapping.Controllers
         // POST: Companies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("~/api/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Industry,Type,NumbOfEmployees,DataOfFoundation,AboutCompany,WebSite,Adress")] Company company)
@@ -74,6 +85,8 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies/Edit/5
+        [Route("~/api/Edit/{id}")]
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id=1)
         {
             if (id == null)
@@ -92,6 +105,7 @@ namespace WebScrapping.Controllers
         // POST: Companies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("~/api/Edit/{id}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Industry,Type,NumbOfEmployees,DataOfFoundation,AboutCompany,WebSite,Adress")] Company company)
@@ -125,10 +139,8 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies/Delete/5
-        /// <summary>
-        /// Deletes a specific TodoItem.
-        /// </summary>
-        /// <param name="id"></param> 
+        [Route("~/api/Delete/{id}")]
+        [HttpGet]      
         public async Task<IActionResult> Delete(int? id=1)
         {
             if (id == null)
@@ -147,6 +159,7 @@ namespace WebScrapping.Controllers
         }
 
         // POST: Companies/Delete/5
+        [Route("~/api/Delete/{id}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id=1)

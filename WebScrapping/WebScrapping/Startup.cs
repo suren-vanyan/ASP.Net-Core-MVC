@@ -29,13 +29,7 @@ namespace WebScrapping
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
+            services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
@@ -51,19 +45,20 @@ namespace WebScrapping
                         Email = "surenvanyan@gmail.com",
                         Url = "https://www.linkedin.com/in/suren-vanyan-209b8315a/"
                     },
-                    //License = new License
-                    //{
-                    //    Name = "Use under LICX",
-                    //    Url = "https://example.com/license"
-                    //}
+
                 });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             services.AddDbContext<WebScrappingContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebScrappingContext")));
@@ -82,18 +77,17 @@ namespace WebScrapping
                 app.UseHsts();
             }
 
-            //app.UseMvc();
+           // app.UseHttpsRedirection();
+            app.UseStaticFiles();
+           // app.UseCookiePolicy();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;//"docs";
+                c.RoutePrefix = string.Empty;
             });
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
