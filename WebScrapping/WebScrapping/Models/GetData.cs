@@ -16,17 +16,20 @@ namespace WebScrapping.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<WebScrappingContext>>()))
             {
+
                 // Look for any movies.
                 if (context.Company.Any())
                 {
+                    //context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Company]");
                     return;   // DB has been seeded
                 }
+
 
                 string urlForSearchAllCompanies = @"https://staff.am/en/companies?CompaniesFilter%5BkeyWord%5D=&CompaniesFilter%5Bindustries%5D=&CompaniesFilter%5Bindustries%5D%5B%5D=2&CompaniesFilter%5Bemployees_number%5D=&CompaniesFilter%5Bsort_by%5D=&CompaniesFilter%5Bhas_job%5D=";
 
 
                 context.Company.AddRange(
-                  Task.Run(()=> CompaniesRepository.SearchURLForAllCompaniesAsync(urlForSearchAllCompanies)).GetAwaiter().GetResult()
+                   CompaniesRepository.SearchURLForAllCompaniesAsync(urlForSearchAllCompanies).GetAwaiter().GetResult()
                 );
                 context.SaveChanges();
             }

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace WebScrapping.Controllers
 {
     [Produces("application/json")]
-    [Route("~/api/CompaniesController")]
+   // [Route("~/api/CompaniesController")]
     public class CompaniesController : Controller
     {
         private readonly WebScrappingContext _context;
@@ -23,11 +23,12 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies
-        [Route("~/api/GetAllCompanies")]
+        [Route("~/api/Index")]
         [HttpGet]
-        public async Task<IActionResult> Index()
-        {      
-            return View(await _context.Company.ToListAsync());
+        public async Task<JsonResult> Index()
+        {
+            //return View(await _context.Company.ToListAsync());
+           return Json(await _context.Company.ToListAsync());
         }
 
         // Companies/GetAllCompanies

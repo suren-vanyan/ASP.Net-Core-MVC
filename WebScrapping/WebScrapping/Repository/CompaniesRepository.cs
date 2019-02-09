@@ -22,12 +22,10 @@ namespace WebScrapping.Repository
         {
             HtmlWeb htmlWeb = new HtmlWeb();
             HtmlDocument doc = new HtmlDocument();
-
-            //if you want to select all 240 companies remove comments  Method Scroll      
+            
             doc.LoadHtml(Scrolling.Scroll(url));
 
-
-            // doc = htmlWeb.Load(url);
+            
             List<Company> allCompanies = null;
 
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='company-action company_inner_right']");
@@ -110,6 +108,7 @@ namespace WebScrapping.Repository
                 }
                 catch (Exception) { }
 
+                if(company.Type!=null&&company.Industry!=null&&company.Name!=null)
                 allCompanies.Add(company);
             }
 
