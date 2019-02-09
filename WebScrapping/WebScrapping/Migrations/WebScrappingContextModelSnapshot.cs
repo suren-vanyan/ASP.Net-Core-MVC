@@ -28,13 +28,15 @@ namespace WebScrapping.Migrations
 
                     b.Property<string>("Adress");
 
-                    b.Property<string>("DataOfFoundation");
+                    b.Property<int>("DateOfFoundation");
 
                     b.Property<string>("Industry");
 
+                    b.Property<int>("JobsHistory");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("NumbOfEmployees");
+                    b.Property<int>("NumberOfEmployees");
 
                     b.Property<string>("Type");
 

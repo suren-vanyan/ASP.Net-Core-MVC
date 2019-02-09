@@ -34,7 +34,7 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id=1)
         {
             if (id == null)
             {
@@ -74,7 +74,7 @@ namespace WebScrapping.Controllers
         }
 
         // GET: Companies/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id=1)
         {
             if (id == null)
             {
@@ -129,7 +129,7 @@ namespace WebScrapping.Controllers
         /// Deletes a specific TodoItem.
         /// </summary>
         /// <param name="id"></param> 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id=1)
         {
             if (id == null)
             {
@@ -149,7 +149,7 @@ namespace WebScrapping.Controllers
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id=1)
         {
             var company = await _context.Company.FindAsync(id);
             _context.Company.Remove(company);

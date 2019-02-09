@@ -9,7 +9,7 @@ using WebScrapping.Models;
 namespace WebScrapping.Migrations
 {
     [DbContext(typeof(WebScrappingContext))]
-    [Migration("20190207182332_Initial")]
+    [Migration("20190208234444_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,13 +30,15 @@ namespace WebScrapping.Migrations
 
                     b.Property<string>("Adress");
 
-                    b.Property<string>("DataOfFoundation");
+                    b.Property<int>("DateOfFoundation");
 
                     b.Property<string>("Industry");
 
+                    b.Property<int>("JobsHistory");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("NumbOfEmployees");
+                    b.Property<int>("NumberOfEmployees");
 
                     b.Property<string>("Type");
 

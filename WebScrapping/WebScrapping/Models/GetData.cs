@@ -26,7 +26,7 @@ namespace WebScrapping.Models
 
 
                 context.Company.AddRange(
-                   CompaniesRepository.SearchURLForAllCompanies(urlForSearchAllCompanies)
+                  Task.Run(()=> CompaniesRepository.SearchURLForAllCompaniesAsync(urlForSearchAllCompanies)).GetAwaiter().GetResult()
                 );
                 context.SaveChanges();
             }

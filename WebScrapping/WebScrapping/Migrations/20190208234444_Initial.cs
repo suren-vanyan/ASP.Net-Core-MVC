@@ -16,11 +16,12 @@ namespace WebScrapping.Migrations
                     Name = table.Column<string>(nullable: true),
                     Industry = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
-                    NumbOfEmployees = table.Column<string>(nullable: true),
-                    DataOfFoundation = table.Column<string>(nullable: true),
+                    NumberOfEmployees = table.Column<int>(nullable: false),
                     AboutCompany = table.Column<string>(nullable: true),
                     WebSite = table.Column<string>(nullable: true),
-                    Adress = table.Column<string>(nullable: true)
+                    Adress = table.Column<string>(nullable: true),
+                    DateOfFoundation = table.Column<int>(nullable: false),
+                    JobsHistory = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
