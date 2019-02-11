@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace WebScrapping.Controllers
 {
     [Produces("application/json")]
-   // [Route("~/api/CompaniesController")]
+    [Route("~/api/CompaniesController")]
     public class CompaniesController : Controller
     {
         private readonly WebScrappingContext _context;
@@ -43,7 +43,7 @@ namespace WebScrapping.Controllers
         // GET: Companies/Details/5
         [Route("~/api/Details/{id}")]
         [HttpGet]
-        public async Task<IActionResult> Details(int? id=1)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -88,7 +88,7 @@ namespace WebScrapping.Controllers
         // GET: Companies/Edit/5
         [Route("~/api/Edit/{id}")]
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id=1)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -142,7 +142,7 @@ namespace WebScrapping.Controllers
         // GET: Companies/Delete/5
         [Route("~/api/Delete/{id}")]
         [HttpGet]      
-        public async Task<IActionResult> Delete(int? id=1)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -163,7 +163,7 @@ namespace WebScrapping.Controllers
         [Route("~/api/Delete/{id}")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id=1)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var company = await _context.Company.FindAsync(id);
             _context.Company.Remove(company);

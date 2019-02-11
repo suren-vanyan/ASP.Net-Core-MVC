@@ -44,6 +44,7 @@ namespace GoodSportsGoods
                 template: "{controller=Product}/{action=List}/{id?}");
             });
 
+            SeedData.EnsurePopulated(app);
             //Eng 236, Rus 226
         }
     }

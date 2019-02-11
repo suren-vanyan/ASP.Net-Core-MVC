@@ -8,7 +8,7 @@ using WebScrapping.Repository;
 
 namespace WebScrapping.Models
 {
-    public class GetData
+    public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {

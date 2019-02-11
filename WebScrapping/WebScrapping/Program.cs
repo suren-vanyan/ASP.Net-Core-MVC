@@ -27,7 +27,7 @@ namespace WebScrapping
                 {
                     var context = services.GetRequiredService<WebScrappingContext>();
                     context.Database.Migrate();
-                    GetData.Initialize(services);
+                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
