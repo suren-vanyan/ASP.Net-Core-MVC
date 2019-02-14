@@ -1,0 +1,14 @@
+﻿@model WebApplication1.Models.Phone
+@{
+    ViewBag.Title = Model.Name;
+}
+<h2>Смартфон @Model.Name</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Производитель</dt>
+        <dd>@Model.Company</dd>
+
+        <dt>Цена</dt>
+        <dd>@Model.Price</dd>
+    </dl>
+</div>
