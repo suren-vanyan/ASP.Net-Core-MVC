@@ -9,11 +9,11 @@ namespace WebApplication1.Models
     public class User
     {
         public int Id { get; set; }
-        [BindingBehavior(BindingBehavior.Required)]
+      //  [BindingBehavior(BindingBehavior.Required)]
         public string Name { get; set; }
-        [BindingBehavior(BindingBehavior.Optional)]
+      // [BindingBehavior(BindingBehavior.Optional)]
         public int Age { get; set; }
-        [BindingBehavior(BindingBehavior.Never)]
-        public bool HasRight { get; set; }
+      //  [BindingBehavior(BindingBehavior.Never)]
+      //  public bool HasRight { get; set; }
     }
 }
