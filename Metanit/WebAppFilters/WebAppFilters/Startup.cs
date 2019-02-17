@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppFilters.Filters;
 
 namespace WebAppFilters
 {
@@ -33,6 +35,7 @@ namespace WebAppFilters
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddScoped<SimpleResourceFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +8,21 @@ using System.Threading.Tasks;
 
 namespace WebAppFilters.Filters
 {
-    public class SimpleActionFilter:Attribute, IActionFilter
+    public class SimpleResourceFilter : Attribute, IResourceFilter
     {
-        public void OnActionExecuting(ActionExecutingContext context)
+        ILogger _logger;
+        public SimpleResourceFilter(ILoggerFactory loggerFactory)
         {
-            // реализация отсутствует
+            _logger = loggerFactory.CreateLogger("SimpleResourceFilter");
+        }
+        public void OnResourceExecuted(ResourceExecutedContext context)
+        {
+            _logger.LogInformation($"OnResourceExecuted - {DateTime.Now}");
         }
 
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            context.HttpContext.Response.Cookies.Append("LastVisit", DateTime.Now.ToString("dd/MM/yyyy hh-mm-ss"));
+            _logger.LogInformation($"OnResourceExecuting - {DateTime.Now}");
         }
     }
 }
