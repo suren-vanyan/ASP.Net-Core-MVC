@@ -11,93 +11,30 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        private MobileContext db;
-        public HomeController(MobileContext context)
+        public IActionResult AddUser(User user)
         {
-            db = context;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            return View(await db.Phones.ToListAsync());
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Phone phone)
-        {
-            db.Phones.Add(phone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
+            //string userInfo = $"Id: {user.Id}  Name: {user.Name}  Age: {user.Age}  HasRight: {user.HasRight}";
+            //return Content(userInfo);
+            if (ModelState.IsValid)
             {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                    return View(phone);
+                string userInfo = $"Id: {user.Id}  Name: {user.Name}  Age: {user.Age}  HasRight: {user.HasRight}";
+                return Content(userInfo);
             }
-            return NotFound();
+            return Content($"Количество ошибок: {ModelState.ErrorCount}");
+
         }
 
-        public IActionResult Contact()
+        public IActionResult GetData(string[] items)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            string result = "";
+            foreach (var item in items)
+                result += item + "; ";
+            return Content(result);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult GetPhone(Phone myPhone)
         {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                    return View(phone);
-            }
-            return NotFound();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(Phone phone)
-        {
-            db.Phones.Update(phone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
-        {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                    return View(phone);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                {
-                    db.Phones.Remove(phone);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
+            return Content($"Name: {myPhone?.Name}  Price:{myPhone.Price}  Company: {myPhone?.Manufacturer?.Name}");
         }
     }
 }

@@ -5,11 +5,19 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
+
     public class Phone
     {
         public int Id { get; set; }
-        public string Name { get; set; } // название смартфона
-        public string Company { get; set; } // компания
-        public int Price { get; set; } // цена
+        public string Name { get; set; }
+        public Company Manufacturer { get; set; }
+        public decimal Price { get; set; }
     }
+
+    public class Company
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
 }
