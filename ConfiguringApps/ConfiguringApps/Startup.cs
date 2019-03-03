@@ -17,7 +17,7 @@ namespace ConfiguringApps
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<UptimeService>();
-            services.AddMvc();
+           // services.AddMvc();
            
         }
 
@@ -28,7 +28,8 @@ namespace ConfiguringApps
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+            app.UseMiddleware<ContentMiddleware>();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");

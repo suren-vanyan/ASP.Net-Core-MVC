@@ -10,16 +10,19 @@ namespace ConfiguringApps.Infrastructure
     public class ContentMiddleware
     {
         private RequestDelegate nextDelegate;
-        public ContentMiddleware(RequestDelegate requestDelegate)
+        private UptimeService uptimeService;
+        public ContentMiddleware(RequestDelegate requestDelegate, UptimeService uptimeService)
         {
             nextDelegate = requestDelegate;
+            this.uptimeService = uptimeService;
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
             if (httpContext.Request.Path.ToString().ToLower() == "/middleware")
             {
-                await httpContext.Response.WriteAsync("This is from the content middleware", Encoding.UTF8);
+                await httpContext.Response.WriteAsync("This is from the content middleware"+
+                    $"Uptime Service {uptimeService.UpTime} ms", Encoding.UTF8);
               
             }
             else
