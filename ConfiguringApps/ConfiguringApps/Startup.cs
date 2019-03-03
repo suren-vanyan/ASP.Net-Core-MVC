@@ -29,6 +29,8 @@ namespace ConfiguringApps
                 app.UseDeveloperExceptionPage();
             }
             //app.UseMvcWithDefaultRoute();
+
+            app.UseMiddleware<ShortCircuitMiddleware>();
             app.UseMiddleware<ContentMiddleware>();
             app.Run(async (context) =>
             {
