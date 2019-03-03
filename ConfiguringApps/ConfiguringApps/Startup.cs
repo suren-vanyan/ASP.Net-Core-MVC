@@ -29,7 +29,7 @@ namespace ConfiguringApps
                 app.UseDeveloperExceptionPage();
             }
             //app.UseMvcWithDefaultRoute();
-
+            app.UseMiddleware<BrowserTypeMiddleware>();
             app.UseMiddleware<ShortCircuitMiddleware>();
             app.UseMiddleware<ContentMiddleware>();
             app.Run(async (context) =>
