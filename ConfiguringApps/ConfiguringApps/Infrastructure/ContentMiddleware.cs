@@ -27,6 +27,7 @@ namespace ConfiguringApps.Infrastructure
             }
             else
             {
+
                 await nextDelegate.Invoke(httpContext);
             }
         }
