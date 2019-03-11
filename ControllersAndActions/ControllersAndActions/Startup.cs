@@ -28,7 +28,7 @@ namespace ControllersAndActions
             app.UseStaticFiles();
             app.UseSession();
             app.UseMvcWithDefaultRoute();
-            //511  //535 Receiving Context Data
+            //522  //547 Receiving Context Data
         }
     }
 }
