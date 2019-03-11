@@ -7,7 +7,7 @@ using OnionApp.Domain.Core;
 
 namespace OnionApp.Domain.Interfaces
 {
-    interface IBookRepository
+    public interface IBookRepository
     {
         IEnumerable<Book> GetBookList();
         Book GetBook(int id);
