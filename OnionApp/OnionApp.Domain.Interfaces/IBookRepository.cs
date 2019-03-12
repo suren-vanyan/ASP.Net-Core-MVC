@@ -15,6 +15,6 @@ namespace OnionApp.Domain.Interfaces
         void Update(Book item);
         void Delete(int id);
         void Save();
-
+        void Dispose();
     }
 }

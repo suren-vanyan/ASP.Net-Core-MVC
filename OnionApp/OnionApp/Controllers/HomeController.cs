@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OnionApp.Domain.Core;
+using OnionApp.Domain.Interfaces;
+using OnionApp.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +11,29 @@ namespace OnionApp.Controllers
 {
     public class HomeController : Controller
     {
+        IBookRepository repo;
+        IOrder order;
+        public HomeController(IBookRepository r, IOrder o)
+        {
+            repo = r;
+            order = o;
+        }
         public ActionResult Index()
         {
+            var books = repo.GetBookList();
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Buy(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
+            Book book = repo.GetBook(id);
+            order.MakeOrder(book);
             return View();
         }
-
-        public ActionResult Contact()
+        protected override void Dispose(bool disposing)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            repo.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
