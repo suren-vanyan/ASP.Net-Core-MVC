@@ -26,6 +26,7 @@ namespace Chapter2
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseToken();
             app.Map("/Index", Index);
             app.MapWhen(context => 2 < 3, Index);
             int x = 2;
