@@ -26,23 +26,27 @@ namespace Chapter2
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseToken();
-            app.Map("/Index", Index);
-            app.MapWhen(context => 2 < 3, Index);
-            int x = 2;
-            app.Use(async (context, next) =>
-            {
-                x *= 2;
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<AuthenticationMiddleware>();
+            app.UseMiddleware<RoutingMiddleware>();
 
-                await next.Invoke();
-                x *= 2;
-                await context.Response.WriteAsync($"Result: {x}");
-            });
-            app.Run(async (context) =>
-            {
-                x *= 2;
-                await Task.FromResult(0);
-            });
+            //app.UseToken();
+            //app.Map("/Index", Index);
+            //app.MapWhen(context => 2 < 3, Index);
+            //int x = 2;
+            //app.Use(async (context, next) =>
+            //{
+            //    x *= 2;
+
+            //    await next.Invoke();
+            //    x *= 2;
+            //    await context.Response.WriteAsync($"Result: {x}");
+            //});
+            //app.Run(async (context) =>
+            //{
+            //    x *= 2;
+            //    await Task.FromResult(0);
+            //});
 
 
         }
