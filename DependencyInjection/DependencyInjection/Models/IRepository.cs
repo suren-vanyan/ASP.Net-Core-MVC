@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DependencyInjection.Models
 {
-    interface IRepository
+   public interface IRepository
     {
         IEnumerable<Product> Products { get; }
         Product this[string name] { get; }
