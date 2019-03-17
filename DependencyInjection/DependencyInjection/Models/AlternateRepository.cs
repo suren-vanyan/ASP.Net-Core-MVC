@@ -12,10 +12,10 @@ namespace DependencyInjection.Models
         {
             _products = new Dictionary<string, Product>();
             new List<Product>
-          {
-                new Product { Name = "CornerFlags ", Price = 34.95M},
+            {
+               new Product { Name = "CornerFlags ", Price = 34.95M},
                new Product { Name = "Stadium", Price = 79500M}
-          }.ForEach(р => AddProduct(р));
+            }.ForEach(р => AddProduct(р));
         }
         public Product this[string name] => _products[name];
 

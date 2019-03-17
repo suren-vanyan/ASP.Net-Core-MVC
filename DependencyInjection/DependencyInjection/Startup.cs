@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DependencyInjection.Controllers;
 using DependencyInjection.Infrastructure;
 using DependencyInjection.Models;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +18,9 @@ namespace DependencyInjection
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            TypeBroker.SetRepositoryType<AlternateRepository>();
+            services.AddTransient<IRepository, MemoryRepositroy>();
+            services.AddTransient<IМodelStorage, DictionaryStorage>();
+            //TypeBroker.SetRepositoryType<AlternateRepository>();
             services.AddMvc();
         }
 
@@ -28,6 +31,7 @@ namespace DependencyInjection
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            //564 RUS
         }
     }
 }
