@@ -8,6 +8,8 @@ namespace DependencyInjection.Models
     class MemoryRepositroy : IRepository
     {
         private IМodelStorage storage;
+        private string guid = Guid.NewGuid().ToString();
+
         public MemoryRepositroy(IМodelStorage storage)
         {
             this.storage = storage;
@@ -33,6 +35,11 @@ namespace DependencyInjection.Models
         public void DeleteProduct(Product product)
         {
             storage.RemoveItem(product.Name);
+        }
+
+        public override string ToString()
+        {
+            return guid;
         }
     }
 }
