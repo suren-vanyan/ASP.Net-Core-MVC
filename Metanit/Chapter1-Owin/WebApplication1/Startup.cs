@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -22,21 +23,20 @@ namespace WebApplication1
         {
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            app.UseOwin(pipeline =>
-            {
-                pipeline(next => SendNewResponseAsync);
-            });
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            var logger = loggerFactory.CreateLogger("FileLogger");
 
-            app.Run(async context =>
+            app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello Work!");
+                logger.LogInformation("Processing request {0}", context.Request.Path);
+                await context.Response.WriteAsync("Hello World!");
             });
         }
 
-       
-       
+
+
 
         public Task SendResponseAsync(IDictionary<string,object> enviroment)
         {

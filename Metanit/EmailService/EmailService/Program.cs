@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace WebApplication1
+namespace EmailService
 {
     public class Program
     {
@@ -19,7 +19,6 @@ namespace WebApplication1
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-             .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Trace));
+                .UseStartup<Startup>();
     }
 }

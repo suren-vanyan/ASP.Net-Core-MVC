@@ -1,0 +1,12 @@
+Request starting HTTP/1.1 GET http://localhost:59766/  
+Processing request /
+Request finished in 148.6637ms 200 
+Request starting HTTP/1.1 GET http://localhost:59766/favicon.ico  
+Processing request /favicon.ico
+Request finished in 9.9532ms 200 
+Request starting HTTP/1.1 GET http://localhost:59766/  
+Processing request /
+Request finished in 68828.0024ms 200 
+Request starting HTTP/1.1 GET http://localhost:59766/favicon.ico  
+Processing request /favicon.ico
+Request finished in 6306.0313ms 200 
