@@ -29,7 +29,7 @@ namespace EmailSending.Controllers
                 using (var client = new SmtpClient())
                 {
                     await client.ConnectAsync("smtp.gmail.com", 587, true);
-                    await client.AuthenticateAsync("surenvanyan@gmail.com", "haneci))");
+                    await client.AuthenticateAsync("surenvanyan@gmail.com", "stepanosaraqelyan18631893))");
 
 
                     await client.SendAsync(emailMessage);
