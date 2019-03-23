@@ -15,21 +15,17 @@ namespace Chapter3_DependencyInjection
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {      
-            services.AddTransient<IMessageSender, EmailMessageSender>();
-            services.AddTransient<MessageService>();
+        {
+            RandomCounter randomCounter = new RandomCounter();
+            services.AddSingleton<ICounter>(randomCounter);
+            services.AddSingleton<CounterService>(new CounterService(randomCounter));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,MessageService messageService)
+        public void Configure(IApplicationBuilder app)
         {
-           
-            app.Run(async (context) =>
-            {
-
-                
-                await context.Response.WriteAsync($"{messageService?.Send()}");
-            });
+            app.UseMiddleware<CounterMiddleware>();           
         }
     }
 }
