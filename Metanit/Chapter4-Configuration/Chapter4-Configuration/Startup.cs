@@ -16,14 +16,8 @@ namespace Chapter4_Configuration
         {
 
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddIniFile("config.json")
-                .AddEnvironmentVariables()
-                .AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    {"firstname", "Tom"},
-                    {"age", "31"}
-                });
+                  .SetBasePath(env.ContentRootPath)
+                  .AddJsonFile("config.json");
             AppConfiguration = builder.Build();
         }
         public IConfiguration AppConfiguration { get; set; }
@@ -35,12 +29,30 @@ namespace Chapter4_Configuration
 
         public void Configure(IApplicationBuilder app)
         {
-            var color = AppConfiguration["color"];
-            var text = AppConfiguration["text"];
+            string projectJsonContent = GetSectionContent(AppConfiguration);
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync($"<p style='color:{color};'>{text}</p>");
+                await context.Response.WriteAsync("{\n" + projectJsonContent + "}");
             });
+        }
+
+        private string GetSectionContent(IConfiguration configSection)
+        {
+            string sectionContent = "";
+            foreach (var section    in configSection.GetChildren())
+            {
+                sectionContent += "\"" + section.Key + "\":";
+                if (section.Value == null)
+                {
+                    string subSectionContent = GetSectionContent(section);
+                    sectionContent += "{\n" + subSectionContent + "},\n";
+                }
+                else
+                {
+                    sectionContent += "\"" + section.Value + "\",\n";
+                }
+            }
+            return sectionContent;
         }
     }
 }
