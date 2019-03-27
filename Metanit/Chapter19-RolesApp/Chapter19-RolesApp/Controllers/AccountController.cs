@@ -64,7 +64,7 @@ namespace Chapter19_RolesApp.Controllers
                 if (user == null)
                 {
                     user = new User { Email = model.Email, Password = model.Password };
-                    Role role = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    Role role = await db.Roles.FirstOrDefaultAsync(r => r.Name == "admin");
                     if (user.Role == null)
                         user.Role = role;
                     db.Users.Add(user);
@@ -72,7 +72,7 @@ namespace Chapter19_RolesApp.Controllers
 
                     await Authenticate(user); // аутентификация
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("About", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
