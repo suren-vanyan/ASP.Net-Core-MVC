@@ -11,10 +11,14 @@ namespace Chapter19_AuthentApp.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+       
         public IActionResult Index()
         {
-            return Content(User.Identity.Name);
+            if (User.Identity.IsAuthenticated)
+            {
+                return Content(User.Identity.Name);
+            }
+            return Content("не аутентифицирован");
         }
 
         public IActionResult About()
