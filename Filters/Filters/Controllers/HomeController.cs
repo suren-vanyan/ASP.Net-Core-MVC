@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Filters.Infrastructure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,17 @@ namespace Filters.Controllers
 {
     public class HomeController : Controller
     {
-        public ViewResult Index => View("Message ","This is the Index action on the Home controller");
+       
+        [Profile]
+        public IActionResult Index()
+        {       
+                return View("Message", "This is the Index action on the Home controller");          
+        }
+
+        [Profile]
+        public IActionResult SecondAction()
+        {        
+                return View("Message", "This is the Index action on the Home controller");         
+        }
     }
 }
