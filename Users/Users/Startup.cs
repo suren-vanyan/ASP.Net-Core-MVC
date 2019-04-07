@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Users.Infrastructure;
 using Users.Models;
 
 namespace Users
@@ -19,22 +20,32 @@ namespace Users
         {
             Configuration = configuration;
         }
+
+        public IConfiguration Configuration;
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppIdentityDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["Data:SportStoreIdentity:ConnectionString"]);
-            });
 
-            services.AddIdentity<AppUser, IdentityUser>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                         options.UseSqlServer(Configuration["Data:SportStoreIdentity:ConnectionString"]));
+            services.AddTransient<IUserValidator<AppUser>, CustomUserValidator>();
+            services.AddTransient<IPasswordValidator<AppUser>, CustomPasswordValidator>();
+
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            }).AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
             services.AddMvc();
         }
 
-        public IConfiguration Configuration;
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
