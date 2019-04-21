@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using Users.Infrastructure;
 using Users.Models;
 
@@ -26,7 +29,7 @@ namespace Users
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+           
             services.AddDbContext<AppIdentityDbContext>(options =>
                          options.UseSqlServer(Configuration["Data:SportStoreIdentity:ConnectionString"]));
             services.AddTransient<IUserValidator<AppUser>, CustomUserValidator>();
@@ -47,8 +50,11 @@ namespace Users
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
+            //env.ConfigureNLog("Nlog.config");
+            //loggerFactory.AddNLog();     
+            loggerFactory.AddConsole();
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Users.Models;
@@ -14,13 +16,16 @@ namespace Users.Controllers
         private IUserValidator<AppUser> userValidator;
         private IPasswordValidator<AppUser> passwordValidator;
         private IPasswordHasher<AppUser> passwordHasher;
+        private readonly ILogger<AdminController> _logger;
         public AdminController(UserManager<AppUser> userManager, IUserValidator<AppUser> userValidator,
-            IPasswordValidator<AppUser> passwordValidator, IPasswordHasher<AppUser> passwordHasher)
+            IPasswordValidator<AppUser> passwordValidator, IPasswordHasher<AppUser> passwordHasher,
+           ILogger<AdminController> logger)
         {
             UserManager = userManager;
             this.userValidator = userValidator;
             this.passwordValidator = passwordValidator;
             this.passwordHasher = passwordHasher;
+            this._logger = logger;
         }
 
         public ViewResult Index() => View(UserManager.Users);
@@ -31,6 +36,10 @@ namespace Users.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogInformation($"After Create {model}");
+                _logger.LogWarning(new NotImplementedException(),$"Warning:");
+                _logger.LogError(new NullReferenceException(), "Exception");
+
                 AppUser user = new AppUser
                 {
                     UserName = model.Name,
@@ -50,6 +59,7 @@ namespace Users.Controllers
                 }
 
             }
+            _logger.LogInformation($"Before Create {model}");
             return View(model);
         }
 
@@ -57,6 +67,8 @@ namespace Users.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             AppUser user = await UserManager.FindByIdAsync(id);
+            _logger.LogInformation("Delete User=>Name:{0},Email:{1},Password:{2}", user.UserName,user.Email,user.PasswordHash);
+         
             if (user != null)
             {
                 IdentityResult result = await UserManager.DeleteAsync(user);
@@ -85,7 +97,9 @@ namespace Users.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+
             AppUser user = await UserManager.FindByIdAsync(id);
+         
             if (user != null)
             {
                 return View(user);
@@ -99,6 +113,9 @@ namespace Users.Controllers
         public async Task<IActionResult> Edit(string id, string email,string password)
         {
             AppUser user = await UserManager.FindByIdAsync(id);
+            _logger.LogInformation($"Edit  {user}");
+            _logger.LogWarning(new NotImplementedException(), $"Warning:");
+            _logger.LogError(new NullReferenceException(), "Exception");
             if (user != null)
             {
                 user.Email = email;
