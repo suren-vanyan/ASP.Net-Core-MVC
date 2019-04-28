@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using Users.Infrastructure;
@@ -34,9 +35,10 @@ namespace Users
                          options.UseSqlServer(Configuration["Data:SportStoreIdentity:ConnectionString"]));
             services.AddTransient<IUserValidator<AppUser>, CustomUserValidator>();
             services.AddTransient<IPasswordValidator<AppUser>, CustomPasswordValidator>();
-
+          
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
+               
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
                 options.Password.RequiredLength = 6;
@@ -45,6 +47,7 @@ namespace Users
                 options.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            //services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Users/Login");
             services.AddMvc();
         }
 
@@ -52,9 +55,7 @@ namespace Users
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
         {
-            //env.ConfigureNLog("Nlog.config");
-            //loggerFactory.AddNLog();     
-            loggerFactory.AddConsole();
+           
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();

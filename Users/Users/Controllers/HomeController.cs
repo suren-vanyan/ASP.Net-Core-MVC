@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Users.Controllers
 {
     public class HomeController:Controller
     {
+        [Authorize]
         public ViewResult Index()
         {
             return View(new Dictionary<object, string>()
