@@ -38,12 +38,13 @@ namespace Users
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+            .UseDefaultServiceProvider(options => options.ValidateScopes = false)
             .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                 })
-        .UseNLog();
+            .UseNLog();
 
     }
 }

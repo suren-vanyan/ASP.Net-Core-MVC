@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,17 @@ using Users.Models;
 
 namespace Users.Controllers
 {
-    public class RoleAdminController:Controller
+    [Authorize(Roles = "Admins")]
+    public class RoleAdminController : Controller
     {
         private RoleManager<IdentityRole> roleManager;
-        public RoleAdminController(RoleManager<IdentityRole> roleMgr)
+        private UserManager<AppUser> _userManager;
+        public RoleAdminController(RoleManager<IdentityRole> roleMgr, UserManager<AppUser> userManager)
         {
             roleManager = roleMgr;
+            _userManager = userManager;
         }
+
         public ViewResult Index() => View(roleManager.Roles);
         public IActionResult Create() => View();
         [HttpPost]
@@ -58,6 +63,79 @@ namespace Users.Controllers
             }
             return View("Index", roleManager.Roles);
         }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            IdentityRole role = await roleManager.FindByIdAsync(id);
+            List<AppUser> member = new List<AppUser>();
+            List<AppUser> nomember = new List<AppUser>();
+            foreach (var appUser in _userManager.Users)
+            {
+                List<AppUser> list = null;
+               // var list = await _userManager.IsInRoleAsync(appUser, role.Name) ? member : nomember;
+                if(await _userManager.IsInRoleAsync(appUser, role.Name))
+                {
+                    list = member;
+                    list.Add(appUser);
+                }
+                else
+                {
+                    list = nomember;
+                    list.Add(appUser);
+                }
+                
+            }
+
+            return View(new RoleEditModel
+            {
+                Role = role,
+                Members = member,
+                NonMembers = nomember,
+
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(RoleModificationМodel model)
+        {
+            IdentityResult result;
+            if (ModelState.IsValid)
+            {
+                foreach (string userId in model.IdsToAdd ?? new string[] { })
+                {
+                    AppUser user = await _userManager.FindByIdAsync(userId);
+                    if (user != null)
+                    {
+                        result = await _userManager.AddToRoleAsync(user,model.RoleName);
+                        if (!result.Succeeded)
+                        {
+                            AddErrorsFromResult(result);
+                        }
+                    }
+                }
+                foreach (string userId in model.IdsToDelete ?? new string[] { })
+                {
+                    AppUser user = await _userManager.FindByIdAsync(userId);
+                    if (user != null)
+                    {
+                        result = await _userManager.RemoveFromRoleAsync(user,model.RoleName);
+                        if (!result.Succeeded)
+                        {
+                            AddErrorsFromResult(result);
+                        }
+                    }
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return await Edit(model.RoleId);
+            }
+        }
+
         private void AddErrorsFromResult(IdentityResult result)
         {
             foreach (IdentityError error in result.Errors)

@@ -49,6 +49,7 @@ namespace Users
                 .AddDefaultTokenProviders();
             //services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Users/Login");
             services.AddMvc();
+
         }
 
 
@@ -61,6 +62,7 @@ namespace Users
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
+            AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,Configuration).Wait();
             //899Rus,
         }
     }
