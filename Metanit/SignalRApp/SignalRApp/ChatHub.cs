@@ -8,9 +8,11 @@ namespace SignalRApp
 {
     public class ChatHub:Hub
     {
-        public async Task Send(string message, string userName)
+
+        public async Task Send(string message)
         {
-            await Clients.All.SendAsync("Send", message, userName);
+            await this.Clients.All.SendAsync("Send", message);
         }
+
     }
 }

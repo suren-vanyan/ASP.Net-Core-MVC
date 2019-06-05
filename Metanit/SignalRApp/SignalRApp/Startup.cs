@@ -27,16 +27,10 @@ namespace SignalRApp
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/chat",options=>
-                {
-                    options.ApplicationMaxBufferSize = 64;
-                    options.TransportMaxBufferSize = 64;
-                    options.LongPolling.PollTimeout = System.TimeSpan.FromMinutes(1);
-                    options.Transports = HttpTransportType.LongPolling | HttpTransportType.WebSockets;
-                });
+                routes.MapHub<ChatHub>("/chat");
             });
 
-           
+
         }
     }
 }
