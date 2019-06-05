@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Shoe>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <h4 class="p-3 mb-2 bg-warning text-info">Zoom Shoes</h4>
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price.ToString("F2")</td>
+            </tr>
+        }
+
+
+    </table>
+</div>
+
