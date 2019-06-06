@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ExistingDb.Models.Manual
 {
-    public class Shoe
+    public class ShoeWidth
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
+        public long Uniqueident { get; set; }
+        public string WidthName { get; set; }
+
     }
 }

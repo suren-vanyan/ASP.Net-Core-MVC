@@ -18,6 +18,8 @@ namespace ExistingDb.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Styles = _context.ShoeStyles;
+            ViewBag.Widths = _context.ShoeWidths;
             return View(_context.Shoes);
         }
     }

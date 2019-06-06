@@ -10,6 +10,7 @@ namespace ExistingDb.Controllers {
         public HomeController(ScaffoldContext ctx) => context = ctx;
 
         public IActionResult Index() {
+            RedirectToAction("Index", "ManualController");
             return View(context.Shoes
                 .Include(s => s.Color)
                 .Include(s => s.SalesCampaigns)
