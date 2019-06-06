@@ -13,13 +13,16 @@ namespace Store.Models.ViewModels
         public string Name { get; set; }
         [Required]
         [Display(Name="Email")]
-        [EmailAddress]
+        [EmailAddress( ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
         [Required]
         [Display(Name="Year of birth")]
         [Range(0,110)]
         public int Year { get; set; }
+
+        [Required(ErrorMessage = "Please enter your phone number")]
+        public string Phone { get; set; }
 
         [Required]
         [Display(Name= "Password")]
@@ -32,6 +35,6 @@ namespace Store.Models.ViewModels
         [DataType(DataType.Password),]
         public string ConfirmPassword { get; set; }
 
-        public string  ReturnUrl { get; set; }
+       
     }
 }

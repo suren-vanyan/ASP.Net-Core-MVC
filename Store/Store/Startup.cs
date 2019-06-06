@@ -40,7 +40,7 @@ namespace Store
                 options.UseSqlServer(Configuration["Data:StoreIdentity:ConnectionString"]);
             });
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                .AddEntityFrameworkStores<AppIdentityDbContext>()
                .AddDefaultTokenProviders();
 
@@ -67,7 +67,7 @@ namespace Store
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
-            routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Account", action = "Register" })
+            routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Account", action = "Index" })
  
             );
         }

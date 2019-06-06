@@ -2,24 +2,22 @@
 
 @{
     ViewData["Title"] = "Register";
-    Layout = "";
+   
 }
 
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-<link rel="stylesheet" href="~/css/site.css" />
-<link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
-<div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-<form asp-action="Login" asp-controller="Account" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div class="p-3 mb-2 bg-primary text-white">Registration Form</div>
-    <div class="form-group col-md-7">
-        <label asp-for="Name"></label>
-        @*<div><span asp-validation-for="Name" class="text-danger"></span></div>*@
+<div class="p-3 mb-2 bg-primary text-white">Registration Form</div>
+
+<form asp-antiforgery="true" asp-action="Register" asp-controller="Account" method="post">
+
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-group col-md-5 ">
+        <label asp-for="Name" class="control-label"></label>     
         <input asp-for="Name" class="form-control" />
     </div>
-    <div class="form-group col-md-5">
+    <div class="form-group col-md-5 ">
         <label asp-for="Email"></label>
         <span asp-validation-for="Email" class="text-danger"></span>
         <input asp-for="Email" class="form-control" />
@@ -30,16 +28,22 @@
         <input asp-for="Year" class="form-control" />
     </div>
     <div class="form-group col-md-5">
-        <label asp-for="Password" ></label>
+        <label asp-for="Phone"></label>
+        <div><span asp-validation-for="Phone" class="text-danger"></span></div>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group col-md-5">
+        <label asp-for="Password"></label>
         <div><span asp-validation-for="Password" class="text-danger"></span></div>
         <input asp-for="Password" class="form-control" />
     </div>
     <div class="form-group col-md-5">
-        <label asp-for="ConfirmPassword" ></label>
+        <label asp-for="ConfirmPassword"></label>
         <div><span asp-validation-for="ConfirmPassword" class="text-danger"></span></div>
         <input asp-for="ConfirmPassword" class="form-control" />
 
     </div>
     <button class="btn btn-primary" type="submit">Register</button>
+    @*<button  class="btn btn-secondary" asp-action="" asp-controller=""></button>*@  @*Todo add action*@
 </form>
 
