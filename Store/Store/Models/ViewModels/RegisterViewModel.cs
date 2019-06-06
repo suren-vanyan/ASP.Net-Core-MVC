@@ -18,7 +18,7 @@ namespace Store.Models.ViewModels
 
         [Required]
         [Display(Name="Year of birth")]
-        [Range(0,110)]
+        [Range(1,110,ErrorMessage ="Year must be les then 110")]
         public int Year { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number")]

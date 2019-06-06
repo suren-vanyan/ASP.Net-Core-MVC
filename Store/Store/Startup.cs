@@ -50,6 +50,7 @@ namespace Store
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             app.UseStatusCodePages();
             if (env.IsDevelopment())
             {
@@ -67,9 +68,12 @@ namespace Store
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
-            routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Account", action = "Index" })
- 
-            );
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Account}/{action=Index}/{id?}");
+
+            });
         }
     }
 }

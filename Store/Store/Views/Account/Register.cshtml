@@ -18,7 +18,7 @@
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="form-group col-md-5 ">
-        <label asp-for="Email"></label>
+        <label asp-for="Email" class="control-label"></label>
         <span asp-validation-for="Email" class="text-danger"></span>
         <input asp-for="Email" class="form-control" />
     </div>
@@ -46,4 +46,8 @@
     <button class="btn btn-primary" type="submit">Register</button>
     @*<button  class="btn btn-secondary" asp-action="" asp-controller=""></button>*@  @*Todo add action*@
 </form>
-@Html.Partial("_ValidationScriptsPartial");
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+
+}
