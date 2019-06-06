@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Store.Models.ViewModels
 {
-    public class AppIdentityDbContext:IdentityDbContext
+    public class AppIdentityDbContext:IdentityDbContext<User>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options):base(options)
         {
-
+            Database.EnsureCreated();
         }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Store.Models;
 using Store.Models.ViewModels;
 
 namespace Store
@@ -39,7 +40,7 @@ namespace Store
                 options.UseSqlServer(Configuration["Data:StoreIdentity:ConnectionString"]);
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                .AddEntityFrameworkStores<AppIdentityDbContext>()
                .AddDefaultTokenProviders();
 
@@ -65,7 +66,10 @@ namespace Store
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            routes.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "Account", action = "Register" })
+ 
+            );
         }
     }
 }

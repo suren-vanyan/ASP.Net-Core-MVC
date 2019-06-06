@@ -5,16 +5,18 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
-
   <ItemGroup>
-    <PackageReference Include="font-awesome" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" /> 
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <Compile Remove="Migrations\20190606061749_AddIdentity.cs" />
+    <Compile Remove="Migrations\20190606061749_AddIdentity.Designer.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="bootstrap" Version="4.3.1" />
+    <PackageReference Include="font-awesome" Version="4.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" /> 
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" /> 
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 </Project>
