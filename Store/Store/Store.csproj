@@ -8,9 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="font-awesome" Version="4.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App" /> 
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    
   </ItemGroup>
 
 
