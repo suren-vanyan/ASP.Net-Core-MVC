@@ -40,7 +40,7 @@ namespace Store
                 options.UseSqlServer(Configuration["Data:StoreIdentity:ConnectionString"]);
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                .AddEntityFrameworkStores<AppIdentityDbContext>()
                .AddDefaultTokenProviders();
 

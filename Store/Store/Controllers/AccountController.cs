@@ -13,9 +13,9 @@ namespace Store.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,13 +38,13 @@ namespace Store.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { NormalizedUserName = model.Name, PhoneNumber = model.Name, Email = model.Email, UserName = model.Email, Year = model.Year };
-                // добавляем пользователя
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
+                   
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");//ToDo
                 }
                 else
                 {
@@ -69,16 +69,16 @@ namespace Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser identityUser = null;
+                User user = null;
                 if (model.userName.Contains("@"))
-                    identityUser = await _userManager.FindByEmailAsync(model.userName);
+                    user = await _userManager.FindByEmailAsync(model.userName);
                 else
-                    identityUser = await _userManager.FindByNameAsync(model.userName);
+                    user = await _userManager.FindByNameAsync(model.userName);
 
-                if (identityUser == null)
+                if (user== null)
                 {
                     await _signInManager.SignOutAsync();
-                    if ((await _signInManager.PasswordSignInAsync(identityUser, model.Password, model.RememberMe, false)).Succeeded)
+                    if ((await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false)).Succeeded)
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
@@ -86,7 +86,7 @@ namespace Store.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");//ToDo
+                            return RedirectToAction("Index", "Account");//ToDo
                         }
                     }
 
