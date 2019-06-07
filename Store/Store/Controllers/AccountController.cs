@@ -37,7 +37,7 @@ namespace Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { NormalizedUserName = model.Name, PhoneNumber = model.Name, Email = model.Email, UserName = model.Email, Year = model.Year };
+                User user = new User {  PhoneNumber = model.Name, Email = model.Email, UserName = model.Name, Year = model.Year };
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

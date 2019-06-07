@@ -22,10 +22,7 @@ namespace Store.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View(_userManager.Users);
 
         public IActionResult Create()
         {
@@ -65,30 +62,49 @@ namespace Store.Controllers
 
 
         [HttpGet]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            User user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                EditUserViewModel editUser = new EditUserViewModel { Id = user.Id, Email = user.Email, Year = user.Year,Password=user.PasswordHash };
+                return View(editUser);
+            }
+            else
+                return RedirectToAction(nameof(Index));
         }
 
 
-        [HttpPut]
-        public async Task<IActionResult> Edit(CreateUserViewModel model)
-        {
+        //[HttpPut]
+        //public async Task<IActionResult> Edit(EditUserViewModel model)
+        //{
 
-        }
+        //}
 
-
-        [HttpGet]
-        public IActionResult Delete()
-        {
-            return View();
-        }
 
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(CreateUserViewModel model)
+        public async Task<IActionResult> Delete([FromQuery(Name = "ID")] string id)
         {
+            User user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult identityResult = await _userManager.DeleteAsync(user);
+                if (identityResult.Succeeded)
+                    RedirectToAction(nameof(Index));
+                else
+                    AddErrorsFromResult(identityResult);
+            }
+            ModelState.AddModelError("", "User Not Found");
+            return View(nameof(Index), _userManager.Users);
+        }
 
+        public void AddErrorsFromResult(IdentityResult identityResult)
+        {
+            foreach (var error in identityResult.Errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
         }
     }
 }
