@@ -62,6 +62,34 @@ namespace Store.Controllers
             };
             return View(model);
         }
+
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult> Edit(CreateUserViewModel model)
+        {
+
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(CreateUserViewModel model)
+        {
+
+        }
     }
 }
 

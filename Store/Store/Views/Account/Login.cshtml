@@ -4,27 +4,32 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="p-3 mb-2 bg-primary text-white">Registration Form</div>
+<div class="p-3 mb-2 bg-primary text-white">Login</div>
 
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="userName"></label><br />
-        <input asp-for="userName" />
-        <span asp-validation-for="userName"></span>
+    <div class="col-md-6">
+        <label asp-for="userName" class="control-label"></label><br />
+        <input asp-for="userName" class="form-control" />
+        <span asp-validation-for="userName" class="text-primary"></span>
     </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
+    <div class="col-md-6">
+        <label asp-for="Password" class="control-label"></label><br />
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-primary"></span>
+    </div >
+    <div class="col-md-6">
         <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
+        <input asp-for="RememberMe" />     
     </div>
-    <div>
+    <div >
         <input type="submit" value="Login" />
     </div>
+    
 </form>
 
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+
+}
