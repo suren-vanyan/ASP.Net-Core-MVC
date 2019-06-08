@@ -37,7 +37,7 @@ namespace Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User {  PhoneNumber = model.Name, Email = model.Email, UserName = model.Name, Year = model.Year };
+                User user = new User {  PhoneNumber = model.Phone, Email = model.Email, UserName = model.Name, Year = model.Year };
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -70,10 +70,10 @@ namespace Store.Controllers
             if (ModelState.IsValid)
             {
                 User user = null;
-                if (model.userName.Contains("@"))
-                    user = await _userManager.FindByEmailAsync(model.userName);
+                if (model.UserName.Contains("@"))
+                    user = await _userManager.FindByEmailAsync(model.UserName);
                 else
-                    user = await _userManager.FindByNameAsync(model.userName);
+                    user = await _userManager.FindByNameAsync(model.UserName);
 
                 if (user== null)
                 {

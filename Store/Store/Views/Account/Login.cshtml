@@ -4,29 +4,30 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="p-3 mb-2 bg-primary text-white">Login</div>
+<div class=" p-2 mb-2 bg-primary text-white">Login</div>
 
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="col-md-6">
-        <label asp-for="userName" class="control-label"></label><br />
-        <input asp-for="userName" class="form-control" />
-        <span asp-validation-for="userName" class="text-primary"></span>
+    <div class="form-group col-md-7">
+        <label asp-for="UserName" class="control-label"></label><br />
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-primary"></span>
     </div>
-    <div class="col-md-6">
+    <div class="form-group col-md-7">
         <label asp-for="Password" class="control-label"></label><br />
         <input asp-for="Password" class="form-control" />
         <span asp-validation-for="Password" class="text-primary"></span>
-    </div >
-    <div class="col-md-6">
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />     
     </div>
-    <div >
-        <input type="submit" value="Login" />
+    <div class="form-group col-md-7">
+        <label asp-for="RememberMe"></label>
+        <input type="checkbox" class="bg-aqua m-2" asp-for="RememberMe" />
     </div>
-    
+    <div>
+        <input type="submit" class="" value="Login" />
+    </div>
+
+
 </form>
 
 @section Scripts{

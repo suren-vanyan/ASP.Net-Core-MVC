@@ -4,25 +4,30 @@
 }
 
 <div class="p-3 mb-2 bg-primary text-white">Edit User</div>
-<form asp-action="Edit" asp-controller="Admin">
+<form asp-action="Edit" method="post" asp-controller="Admin">
     <div asp-validation-summary="All" class="text-primary"></div>
     <div class="form-group">
-        <input type="hidden" asp-for="Id" />
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label">Email</label>
+        <input asp-for="UserName" class="form-control" type="text" />
     </div>
     <div class="form-group">
         <label asp-for="Email" class="control-label">Email</label>
-        <input type="text" asp-for="Email" class="form-control" />
+        <input asp-for="Email" class="form-control" type="text" />
     </div>
     <div class="form-group">
         <label asp-for="Year" class="control-label">Year</label>
-        <input type="number" asp-for="Year" class="form-control" />
+        <input asp-for="Year" class="form-control" type="number" />
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password" class="control-label">Password</label>
         <input name="password" class="form-control" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <a asp-action="Index" asp-controller="Admin" class="btn btn-secondary">Cancel</a>
     </div>
 </form>

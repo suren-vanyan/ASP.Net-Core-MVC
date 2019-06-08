@@ -14,11 +14,17 @@ namespace Store.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly UserManager<User> _userManager;
-
-        public AdminController(UserManager<User> userManager)
+        private UserManager<User> _userManager;
+        private IUserValidator<User> _userValidator;
+        private IPasswordHasher<User> _passwordHasher;
+        private IPasswordValidator<User> _passwordValidator;
+        public AdminController(UserManager<User> userManager, IUserValidator<User> userValidator,
+            IPasswordHasher<User> passwordHasher, IPasswordValidator<User> passwordValidator)
         {
             _userManager = userManager;
+            _userValidator = userValidator;
+            _passwordHasher = passwordHasher;
+            _passwordValidator = passwordValidator;
         }
 
         // GET: /<controller>/
@@ -67,7 +73,7 @@ namespace Store.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                EditUserViewModel editUser = new EditUserViewModel { Id = user.Id, Email = user.Email, Year = user.Year,Password=user.PasswordHash };
+                EditUserViewModel editUser = new EditUserViewModel { Id = user.Id,UserName=user.UserName ,Email = user.Email, Year = user.Year };
                 return View(editUser);
             }
             else
@@ -75,11 +81,44 @@ namespace Store.Controllers
         }
 
 
-        //[HttpPut]
-        //public async Task<IActionResult> Edit(EditUserViewModel model)
-        //{
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel model)
+        {
+            User user = await _userManager.FindByIdAsync(model.Id);
+            if (user != null)
+            {
+                user.Email = model.Email;
+                user.Year = model.Year;
+                user.UserName = model.UserName;
+                IdentityResult validEmail = await _userValidator.ValidateAsync(_userManager, user);
+                if (!validEmail.Succeeded) { AddErrorsFromResult(validEmail); }
 
-        //}
+                IdentityResult validPass = null;
+                if (!string.IsNullOrWhiteSpace(model.Password))
+                {
+                    validPass = await _passwordValidator.ValidateAsync(_userManager, user, model.Password);
+                    if (validPass.Succeeded)
+                    {
+                        user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
+                    }
+                    else { AddErrorsFromResult(validPass); }
+                      
+                }
+               
+
+                if ((validEmail.Succeeded && validPass == null) || (validEmail.Succeeded && validPass.Succeeded && model.Password!=string.Empty))
+                {
+                    IdentityResult result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction(nameof(Index));
+                    else
+                        AddErrorsFromResult(result);
+                }
+            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View(user);
+        }
 
 
 

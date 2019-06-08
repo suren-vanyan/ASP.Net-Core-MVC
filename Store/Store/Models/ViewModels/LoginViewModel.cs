@@ -12,7 +12,7 @@ namespace Store.Models.ViewModels
         [Required]
         [Display(Name = "UserName")]
         [EmailAddress]
-        public string userName { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [Display(Name = "Password")]
