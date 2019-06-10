@@ -10,13 +10,12 @@ namespace Store.Models.ViewModels
     {
     
         [Required]
-        [Display(Name = "UserName")]
-        [EmailAddress]
+        [Display(Name = "UserName")]      
         public string UserName { get; set; }
 
         [Required]
         [Display(Name = "Password")]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)]      
         public string Password { get; set; }
 
         [Display(Name = "Remember?")]

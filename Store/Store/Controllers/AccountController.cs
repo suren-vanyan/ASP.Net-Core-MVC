@@ -75,7 +75,7 @@ namespace Store.Controllers
                 else
                     user = await _userManager.FindByNameAsync(model.UserName);
 
-                if (user== null)
+                if (user!= null)
                 {
                     await _signInManager.SignOutAsync();
                     if ((await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false)).Succeeded)
