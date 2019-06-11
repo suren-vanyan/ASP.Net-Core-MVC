@@ -66,7 +66,7 @@ namespace Store
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            AppIdentityDbContext.CreatAdminAccountAsync(app.ApplicationServices, Configuration).GetAwaiter().GetResult();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
