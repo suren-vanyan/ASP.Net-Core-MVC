@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Store.Infrastructure
 {
-    [HtmlTargetElement(ParentTag = "td", Attributes = "identity-role")]
+    [HtmlTargetElement( "td", Attributes = "identity-role")]
     public class RoleUsersTagHelper : TagHelper
     {
         private UserManager<User> _userManager;
