@@ -22,7 +22,8 @@ namespace Store.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        // GET: /<controller>/
+      
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -45,8 +46,8 @@ namespace Store.Controllers
                 if (result.Succeeded)
                 {
                    
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Account");//ToDo
+                    await _signInManager.SignInAsync(user, true);
+                    return RedirectToAction("Index", "Admin");//ToDo
                 }
                 else
                 {
@@ -86,11 +87,13 @@ namespace Store.Controllers
                     {
                         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
-                            return Redirect(model.ReturnUrl);
+                           
+                           // return Redirect(model.ReturnUrl+"/Index" ?? "/");
+                            return RedirectToAction(nameof(Index), "RoleAdmin");//ToDo
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Account");//ToDo
+                            return RedirectToAction("Index", "Admin");//ToDo
                         }
                     }
 

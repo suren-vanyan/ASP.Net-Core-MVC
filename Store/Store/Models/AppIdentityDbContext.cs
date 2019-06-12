@@ -14,7 +14,7 @@ namespace Store.Models.ViewModels
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         public static async Task CreatAdminAccountAsync(IServiceProvider serviceProvider, IConfiguration configuration)
@@ -32,14 +32,16 @@ namespace Store.Models.ViewModels
                 if (await roleManager.FindByNameAsync(role) == null)
                     await roleManager.CreateAsync(new IdentityRole(role));
 
-                User user = new User { UserName = userName, Email = userEmail };
-                var result = await userManager.CreateAsync(user);
+                User user = new User { UserName = userName, Email = userEmail};
+                
+                var result = await userManager.CreateAsync(user,password);
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, role);
                 }
 
             }
+            
         }
     }
 }
