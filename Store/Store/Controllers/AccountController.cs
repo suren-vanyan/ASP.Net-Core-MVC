@@ -66,7 +66,7 @@ namespace Store.Controllers
         {
             ViewBag.returnUrl = returnUrl;
             return View();
-          //  return View(new LoginViewModel { ReturnUrl = returnUrl });
+        
         }
 
         [HttpPost]
@@ -90,8 +90,7 @@ namespace Store.Controllers
                         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
                             return Redirect(returnUrl??"/");
-                           // return Redirect("~"+model.ReturnUrl+"/");
-
+                          
                         }
                         else
                         {
