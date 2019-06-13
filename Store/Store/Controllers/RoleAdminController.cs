@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace Store.Controllers
 {
-    //[Authorize(Roles = "Admins")]
-    [Authorize]
+    [Authorize(Roles = "Admins")]  
     public class RoleAdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Store.Controllers
 {
-    [Authorize]
+  
     public class ClaimsController : Controller
     {
-        
+        [Authorize]
         public IActionResult Index()
         {
             return View(User?.Claims);
