@@ -5,10 +5,10 @@
 }
 
 <div class=" p-2 mb-2 bg-primary text-white">Login</div>
-
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
+<div asp-validation-summary="ModelOnly"></div>
+<form method="post" asp-controller="Account" asp-action="Login">
+    
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
     <div class="form-group col-md-7">
         <label asp-for="UserName" class="control-label"></label><br />
         <input asp-for="UserName" class="form-control" />
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group col-md-7">
         <label asp-for="Password" class="control-label"></label><br />
-        <input asp-for="Password"  class="form-control" />
+        <input asp-for="Password" class="form-control" />
         <span asp-validation-for="Password" class="text-primary"></span>
     </div>
     <div class="form-group col-md-7">

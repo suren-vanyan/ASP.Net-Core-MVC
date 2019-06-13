@@ -62,15 +62,17 @@ namespace Store.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl )
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            ViewBag.returnUrl = returnUrl;
+            return View();
+          //  return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +87,11 @@ namespace Store.Controllers
                     await _signInManager.SignOutAsync();
                     if ((await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false)).Succeeded)
                     {
-                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
-                           
-                           // return Redirect(model.ReturnUrl+"/Index" ?? "/");
-                            return RedirectToAction(nameof(Index), "RoleAdmin");//ToDo
+                            return Redirect(returnUrl??"/");
+                           // return Redirect("~"+model.ReturnUrl+"/");
+
                         }
                         else
                         {
