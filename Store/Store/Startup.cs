@@ -67,6 +67,7 @@ namespace Store
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            
             AppIdentityDbContext.CreatAdminAccountAsync(app.ApplicationServices, Configuration).GetAwaiter().GetResult();
             app.UseMvc(routes =>
             {

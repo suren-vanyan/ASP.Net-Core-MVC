@@ -3,6 +3,7 @@
 }
 
 
+
 @if (User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
@@ -11,16 +12,16 @@
         <input type="submit" value="Выход" />
     </form>
 }
-else
-{
-    <div class="bg-primary m-1 p-1"><h1>AccountController</h1></div>
-    <a asp-controller="Account" asp-action="Login">Sign In</a>
-    <a asp-controller="Account" asp-action="Register">Register</a>
-    <div class="bg-info m-1 p-1"><h1>AdminController</h1></div>
-    <a asp-controller="Admin" asp-action="Index">Index</a>
-    <div class="bg-info m-1 p-1"><h1>RoleAdminController</h1></div>
-    <a asp-controller="RoleAdmin" asp-action="Index">Index</a>
-    <div class="bg-info m-1 p-1"><h1>ClaimsController</h1></div>
-    <a asp-controller="Claims" asp-action="Index">Index</a>
+<div class="bg-primary m-1 p-1"><h3>AccountController</h3></div>
+<a asp-controller="Account" asp-action="Login">Sign In</a>
+<a asp-controller="Account" asp-action="Register">Register</a>
+<div class="bg-info m-1 p-1"><h3>AdminController</h3></div>
+<a asp-controller="Admin" asp-action="Index">Index</a>
+<div class="bg-primary m-1 p-1"><h3>RoleAdminController</h3></div>
+<a asp-controller="RoleAdmin" asp-action="Index">Index</a>
+<div class="bg-danger m-1 p-1"><h3>ClaimsController</h3></div>
+<a asp-controller="Claims" asp-action="Index">Index</a>
+<div class="bg-info m-1 p-1"><h3>HomeController</h3></div>
+<a asp-controller="Home" asp-action="Index">Index</a>
+<a asp-controller="Home" asp-action="UserProps">UserProps</a>
 
-}

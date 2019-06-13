@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Users.Infrastructure
+namespace Store.Infrastructure
 {
 
     [HtmlTargetElement("td", Attributes = "identity-claim-type")]
