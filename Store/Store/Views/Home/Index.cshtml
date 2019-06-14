@@ -11,6 +11,8 @@
 
 @if (User?.Identity?.IsAuthenticated ?? false)
 {
+<a asp-action="OtherAction" asp-controller="Home" class="btn btn-primary">OtherAction(with Policy)</a>
     <a asp-controller="Account" asp-action="Logout"
        class="btn btn-danger">Logout</a>
+    <a asp-action="Index" asp-controller="Account" class="btn btn-secondary">Cancel</a>
 }

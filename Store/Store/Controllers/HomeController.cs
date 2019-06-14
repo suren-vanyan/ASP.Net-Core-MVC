@@ -22,7 +22,7 @@ namespace Users.Controllers
         public IActionResult Index() => View(GetData(nameof(Index)));
 
         [Authorize(Roles = "Users")]
-      //  [Authorize(Policy = "DCUsers")]
+        [Authorize(Policy = "DCUsers")]
         public IActionResult OtherAction() => View("Index",
             GetData(nameof(OtherAction)));
 

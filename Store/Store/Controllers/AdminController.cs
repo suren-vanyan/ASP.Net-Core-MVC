@@ -45,10 +45,11 @@ namespace Store.Controllers
             {
                 User user = new User
                 {
-                    NormalizedUserName = model.Name,
+                    PhoneNumber = model.Phone,
                     UserName = model.Name,
                     Email = model.Email,
                     Year = model.Year
+
 
                 };
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
@@ -75,7 +76,7 @@ namespace Store.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                EditUserViewModel editUser = new EditUserViewModel { Id = user.Id,UserName=user.UserName ,Email = user.Email, Year = user.Year };
+                EditUserViewModel editUser = new EditUserViewModel { Id = user.Id,UserName=user.UserName ,Email = user.Email, Year = user.Year,Phone=user.PhoneNumber };
                 return View(editUser);
             }
             else
@@ -92,6 +93,7 @@ namespace Store.Controllers
                 user.Email = model.Email;
                 user.Year = model.Year;
                 user.UserName = model.UserName;
+                user.PhoneNumber = model.Phone;
                 IdentityResult validEmail = await _userValidator.ValidateAsync(_userManager, user);
                 if (!validEmail.Succeeded) { AddErrorsFromResult(validEmail); }
 

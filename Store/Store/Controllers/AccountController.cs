@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Models;
@@ -17,16 +18,28 @@ namespace Store.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private IHttpContextAccessor _accessor;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IHttpContextAccessor accessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _accessor = accessor;
         }
       
         [AllowAnonymous]
         public IActionResult Index()
         {
+
             return View();
+        }
+        [AllowAnonymous]
+        public string Test()
+        {
+            string remoteIpAddress =  HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            if (Request.Headers.ContainsKey("X-Forwarded-For"))
+                remoteIpAddress = Request.Headers["X-Forwarded-For"];
+            return remoteIpAddress;
         }
 
         [HttpGet]
