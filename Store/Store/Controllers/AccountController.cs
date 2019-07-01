@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Models;
@@ -17,16 +18,28 @@ namespace Store.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private IHttpContextAccessor _accessor;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IHttpContextAccessor accessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _accessor = accessor;
         }
       
         [AllowAnonymous]
         public IActionResult Index()
         {
+
             return View();
+        }
+        [AllowAnonymous]
+        public string Test()
+        {
+            string remoteIpAddress =  HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            if (Request.Headers.ContainsKey("X-Forwarded-For"))
+                remoteIpAddress = Request.Headers["X-Forwarded-For"];
+            return remoteIpAddress;
         }
 
         [HttpGet]
@@ -62,15 +75,17 @@ namespace Store.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl )
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            ViewBag.returnUrl = returnUrl;
+            return View();
+        
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +100,10 @@ namespace Store.Controllers
                     await _signInManager.SignOutAsync();
                     if ((await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false)).Succeeded)
                     {
-                        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
-                           
-                           // return Redirect(model.ReturnUrl+"/Index" ?? "/");
-                            return RedirectToAction(nameof(Index), "RoleAdmin");//ToDo
+                            return Redirect(returnUrl??"/");
+                          
                         }
                         else
                         {

@@ -15,6 +15,8 @@ namespace Store.Models.ViewModels
         [Required]
         public string Password  { get; set; }
         [Required]
+        public string Phone { get; set; }
+        [Required]
         public int Year { get; set; }
     }
 }

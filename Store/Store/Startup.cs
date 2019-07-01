@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +13,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Store.Infrastructure;
 using Store.Models;
 using Store.Models.ViewModels;
-
+using Microsoft.AspNetCore.HttpOverrides;
 namespace Store
 {
     public class Startup
@@ -28,6 +31,17 @@ namespace Store
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IClaimsTransformation, LocationClaimsProvider>();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DCUsers", policy =>
+                {
+                    policy.RequireRole("Users");
+                    policy.RequireClaim(ClaimTypes.StateOrProvince, "DC");
+                });
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -62,10 +76,15 @@ namespace Store
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
+            
             AppIdentityDbContext.CreatAdminAccountAsync(app.ApplicationServices, Configuration).GetAwaiter().GetResult();
             app.UseMvc(routes =>
             {
