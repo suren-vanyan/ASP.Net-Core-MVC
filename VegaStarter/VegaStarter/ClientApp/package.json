@@ -12,7 +12,6 @@
     "watch-test": "mocha --watch --reporter spec test",
     "build-js": "browserify -t reactify app/js/main.js | uglifyjs -mc > static/bundle.js"
   },
-
   "private": true,
   "dependencies": {
     "@angular/animations": "6.1.10",
