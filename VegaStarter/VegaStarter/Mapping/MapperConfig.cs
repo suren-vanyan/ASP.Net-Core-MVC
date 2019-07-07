@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VegaStarter.Models;
+using VegaStarter.Models.Resources;
 
 namespace VegaStarter.Mapping
 {
@@ -17,6 +18,8 @@ namespace VegaStarter.Mapping
                   conf.CreateMap<Make, MakeResource>().ReverseMap();
                   conf.CreateMap<Model, ModelResource>();
                   conf.CreateMap<Model, ModelResource>().ReverseMap();
+                  conf.CreateMap<Feature, FeatureResource>();
+                  conf.CreateMap<Feature, FeatureResource>().ReverseMap();
               });
 
             return mapperConfig.CreateMapper();

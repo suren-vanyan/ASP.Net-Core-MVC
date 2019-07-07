@@ -10,6 +10,7 @@ using VegaStarter.Persistence;
 
 namespace VegaStarter.Controllers
 {
+    [Route("api/[controller]")]
     public class MakesController : Controller
     {
         private readonly VegaDbContext context;
@@ -21,7 +22,8 @@ namespace VegaStarter.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("/api/makes")]
+
+        [HttpGet("all-makes")]
         public async Task<IEnumerable<MakeResource>> GetMakes()
         {
            var makes= await context.Makes.Include(m => m.Models).ToListAsync();
