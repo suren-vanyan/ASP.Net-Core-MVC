@@ -9,15 +9,18 @@ import { from } from 'rxjs';
 //   providedIn: 'root'
 // })
 @Injectable()
-export class MakeService {
+export class VehicleService {
 
   makesUrl = 'api/makes/all-makes';
   constructor(private httpClient: HttpClient) { }
 
   getMakes() {
-    return this.httpClient.get(this.makesUrl);
-   
+    return this.httpClient.get(this.makesUrl) ;
   }
+
+  getFeatures() {
+    return this.httpClient.get('api/features/all-features');
+   }
 
 
 }
