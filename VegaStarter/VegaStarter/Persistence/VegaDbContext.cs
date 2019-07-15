@@ -16,7 +16,7 @@ namespace VegaStarter.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Make>().ToTable("Makes");
-          // modelBuilder.Entity<Feature>().HasKey(f=>f.Id);
+           //modelBuilder.Entity<Feature>().HasKey(f=>f.Id);
         }
     }
 }

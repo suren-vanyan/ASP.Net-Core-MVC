@@ -18,7 +18,6 @@ namespace VegaStarter.Mapping
                   conf.CreateMap<Make, MakeResource>().ReverseMap();
                   conf.CreateMap<Model, ModelResource>();
                   conf.CreateMap<Model, ModelResource>().ReverseMap();
-                  conf.CreateMap<Feature, FeatureResource>();
                   conf.CreateMap<Feature, FeatureResource>().ReverseMap();
               });
 
