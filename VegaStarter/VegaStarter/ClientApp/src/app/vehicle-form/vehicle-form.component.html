@@ -15,9 +15,9 @@
     </select>
   </div>
   <p>Is this vehicle registered?</p>
-      <label for="registered" class="radio-inline">
-        <input type="radio" id="registered" value="true">
-      </label>
+  <label for="registered" class="radio-inline">
+    <input type="radio" id="registered" value="true">
+  </label>
   <label for="notRegistered" class="radio-inline">
     <input type="radio" id="notRegistered" value="false">
   </label>
@@ -27,4 +27,19 @@
       <input type="checkbox" id="feature{{f.id}}">{{f.name}}
     </label>
   </div>
+  <h2>Contact</h2>
+    <div class="form-group">
+      <label for="contactName"></label>
+      <input id="contactName" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="contactPhone"></label>
+      <input id="contactPhone" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="contactEmail"></label>
+      <input id="contactEmail" type="text" class="form-control">
+    </div>
+    <button class="btn btn-primary">Save</button>
+ 
 </form>

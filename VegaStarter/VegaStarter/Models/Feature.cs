@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace VegaStarter.Models
@@ -8,5 +9,7 @@ namespace VegaStarter.Models
         public int Id { get; set; }
         [StringLength(50)]
         public string Name { get; set; }
+
+        public ICollection<VehicleFeature> VehicleFeatures { get; set; }
     }
 }

@@ -12,11 +12,11 @@ namespace VegaStarter.Persistence
 
         public DbSet<Make> Makes { get; set; }
         public DbSet<Feature> Features { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Make>().ToTable("Makes");
-           //modelBuilder.Entity<Feature>().HasKey(f=>f.Id);
+            modelBuilder.Entity<VehicleFeature>().HasKey(v => new { v.FeatureId, v.VehicleId });
         }
     }
 }
